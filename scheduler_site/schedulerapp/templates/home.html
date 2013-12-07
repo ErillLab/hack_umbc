@@ -286,7 +286,7 @@
     $.get( '/scheduler/schedulerapp/get_section_ajax/' + uid, function( data ) {
       var courseStartTime = [data["sessions"][0]["time-start-hr"], data["sessions"][0]["time-start-min"]];
       var courseEndTime = [data["sessions"][0]["time-end-hr"],data["sessions"][0]["time-end-min"]];
-      var courseDay = data["day"];
+      var courseDay = data["sessions"][0]["day"];
       var courseTitle = data["course-number"];
       addClass(courseStartTime, courseEndTime, courseDay, courseTitle, uid);
     });

@@ -255,6 +255,7 @@ function dayToJ(day) {
 			day = "Thursday";
 	if (day == "Fri")
 			day = "Friday";
+	console.log(day);
 	return 1+weekdays.indexOf(day.charAt(0).toUpperCase() + day.substr(1).toLowerCase());
 }
 
