@@ -103,6 +103,11 @@
     // Schedule canvas
     function addClassByUid(uid) {
       // ajax fetch info with uid
+      // Get data by AJAX
+      $.get( "{% url get_section_info_ajax "+uid+"}", function( data ) {
+        console.log(data);
+      });
+
       addClass(courseStartTime,courseEndTime,courseDay,courseTitle,uid);
     }
 
@@ -170,7 +175,10 @@
     ///////////////////////////////
     // Section card
     function showCard(uid) {
-      // get data based on uid (via ajax?)
+      // Get data by AJAX
+      $.get( "{% url get_section_info_ajax "+uid+"}", function( data ) {
+        console.log(data);
+      });
 
       // Populate data
       $("#course-number").text("");
@@ -217,6 +225,7 @@
     }
     var urlCode = encode(uids);
     console.log(urlCode);
+    console.log(selection_to_integer(urlCode));
   });
   
 </script>
