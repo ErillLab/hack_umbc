@@ -349,6 +349,8 @@ function removeClass(uid) {
 }
 
 function clearCanvas() {
+	canvas[0].width = canvas[0].width;
+
 	// Clear canvas
 	context.fillStyle = backgroundColor;
 	context.fillRect(0, 0, canvas[0].width, canvas[0].height)
