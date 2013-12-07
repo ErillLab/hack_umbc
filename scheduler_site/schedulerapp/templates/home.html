@@ -20,68 +20,108 @@ share
 </div>
 
 <h2>Search for courses</h2>
-
-{% for course in courses %}
-<div class="panel panel-default">
-  <div class="panel-heading"><b>{{course}}</b></div>
-  <div class="panel-body">
-    <p>[course description] {{ course.description }}</p>
-    sections
-    <table class="table table-condensed">
-      <thead>
-        <tr>
-          <th>Course id</th>
-          <th>Class time</th>
-          <th>Taught by</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-      {% for section in course.section_set.all %}
-      <tr>
-        <td>{{ section.courseid }}</td>
-        <td>{% for session in section.session_set.all %} {{ session }}, {% endfor %}</td>
-        <td>{% for prof in section.professors.all %} {{ prof }}, {% endfor %}</td>
-        <td><button class="btn">More info</button> <button class="btn">Enroll</button></td>
-      </tr>
-      {% endfor %}
-      </tbody>
-  </div>
-
+<div class="row">
+  <form id="live-search" action="" class="styled" method="post">
+    <fieldset>
+      <input type="text" class="text-input" id="filter" value="" />
+    </fieldset>
+  </form>
 </div>
-
-{% endfor %}
+<div id="courseList" class="row">
+  {% for course in courses %}
+  <div class="panel panel-default">
+    <div class="panel-heading"><b>{{course}}</b></div>
+    <div class="panel-body">
+      <p>[course description] {{ course.description }}</p>
+      sections
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th>Course id</th>
+            <th>Class time</th>
+            <th>Taught by</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for section in course.section_set.all %}
+        <tr>
+          <td>{{ section.courseid }}</td>
+          <td>{% for session in section.session_set.all %} {{ session }}, {% endfor %}</td>
+          <td>{% for prof in section.professors.all %} {{ prof }}, {% endfor %}</td>
+          <td><button class="btn">More info</button> <button class="btn">Enroll</button></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="{% static "schedule.js" %}"></script>
 <script type="text/javascript">
-  // Make sure the canvas size is set explicitly (this should be done in the CSS)
-  //$("#schedule")[0].width = $(window).width() * 0.7;
-  //$("#schedule")[0].height = $(window).height() * 0.6;
-  
-  // Set a start and end time to display
-  // 10am -> 8pm
-  var schedStartTime = [10, 0]; // [h, m]
-  var schedEndTime = [20, 0];
-  
-  // Initialize everything
-  initializeCanvas($("#schedule"), schedStartTime, schedEndTime, function(clickInfo) {
-  // Edit this to choose what to do when class is clicked
-  console.log(clickInfo);
-  //$('#clickInfo').val(JSON.stringify(clickInfo));
+  $(document).ready(function(){
+    // Set a start and end time to display
+    // 10am -> 8pm
+    var schedStartTime = [10, 0]; // [h, m]
+    var schedEndTime = [20, 0];
+    
+    // Initialize everything
+    initializeCanvas($("#schedule"), schedStartTime, schedEndTime, function(clickInfo) {
+      // Edit this to choose what to do when class is clicked
+      console.log(clickInfo);
+      //$('#clickInfo').val(JSON.stringify(clickInfo));
+    });
+    
+    // Add classes
+    addClass([17,30],[19,10],"Tuesday","CHEM 437");
+    addClass([17,30],[19,10],"Thursday","CHEM 437");
+    addClass([13,00],[14,10],"Monday","MATH 221");
+    addClass([13,00],[14,10],"Wednesday","MATH 221");
+
+    addClass([16,00],[17,15],"Monday","CMSC 203");
+    addClass([16,00],[17,15],"Wednesday","CMSC 203");
+    
+    // Get the image string:
+    //pngURI = screenshot();
+
+    ///////////////////////////////
+    // Live search
+    // Credit: http://stackoverflow.com/questions/15103358/live-search-in-jquery
+    $("#filter").keyup(function(){
+      // Retrieve the input field text and reset the count to zero
+      var filter = $(this).val(), count = 0;
+
+      // Loop through the comment list
+      $("#courseList > div").each(function(){
+
+        // If the list item does not contain the text phrase fade it out
+        if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+          $(this).fadeOut();
+
+        // Show the list item if the phrase matches and increase the count by 1
+        } else {
+          $(this).show();
+          count++;
+        }
+      });
+
+      // Update the count
+      //var numberItems = count;
+      //$("#filter-count").text("Number of Comments = "+count);
+    });
+    // Prevent Enter key from submitting the form
+    $("#filter").keypress(function(e){
+      if(event.keyCode == 13) {
+        e.preventDefault();
+        return false;
+      }
+    });
+    ////////////////////////
   });
   
-  // Add classes
-  addClass([17,30],[19,10],"Tuesday","CHEM 437");
-  addClass([17,30],[19,10],"Thursday","CHEM 437");
-  addClass([13,00],[14,10],"Monday","MATH 221");
-  addClass([13,00],[14,10],"Wednesday","MATH 221");
-
-  addClass([16,00],[17,15],"Monday","CMSC 203");
-  addClass([16,00],[17,15],"Wednesday","CMSC 203");
   
-  // Get the image string:
-  //screenshot();
 </script>
 
 
