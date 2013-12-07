@@ -24,6 +24,10 @@ def mean_exp_grade(d):
     return (sum(d["num_exp_%s" % grade]*scale[grade] for grade in "ABCDFIP")
             /float(d['num_questionnaires']))
 
+def cancelability(d):
+    main_q = 'How many times was class cancelled'
+    return mean_val(d, main_q)
+
 def effectiveness(d):
     return mean_val(d,main_q)
 

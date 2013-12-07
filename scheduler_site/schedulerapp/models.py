@@ -38,7 +38,9 @@ class Section(models.Model):
         return u'%s [section: %d]' % (self.course, self.courseid)
 
 class Evaluation(models.Model):
-    pass
+    effectiveness = models.FloatField()
+    grading = models.FloatField() 
+    cancelability = models.FloatField()
 
 class Professor(models.Model):
     name = models.CharField(max_length=128)

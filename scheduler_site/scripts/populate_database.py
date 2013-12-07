@@ -4,6 +4,10 @@ import random
 import schedulerapp.models as models
 import string
 
+# import course analyzer
+sys.path.append('../src/sceq_miner')
+import course_analysis
+
 def populate_db():
     # read pickle
     print 'reading pickle ..',
@@ -18,7 +22,10 @@ def populate_db():
                                                        title=sec['title'],
                                                        )
         instructor,_ = models.Professor.objects.get_or_create(name=sec['instructor'])
-        evaluation = models.Evaluation.objects.create()
+        evaluation = models.Evaluation.objects.create(
+            effectiveness = course_analysis.instructor_average(sec['instructor'], sections),
+            grading = course_analysis.mean_exp_grade(sec),
+            cancelability = course_analysis.cancelability(sec))
 
         section = models.Section.objects.create(course=course,
                                                 semester=sec['semester'],
@@ -26,7 +33,6 @@ def populate_db():
                                                 courseid=random.randint(1, 10000),
                                                 evaluation=evaluation,
                                                 professor=instructor,
-                                                #section=sec['section'],
                                                 )
 
 
