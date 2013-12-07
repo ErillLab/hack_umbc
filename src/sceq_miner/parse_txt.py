@@ -2,10 +2,10 @@
 Code to read a scraped txt and emit some kind of rational data structure :(
 """
 from utils import *
-import re,os
+import re,os,cPickle
 from collections import defaultdict
 
-def test_parse_page():
+def parse_all():
     txt_path = "../../data/sceq_txts"
     txt_names = filter(lambda x:x.endswith("txt"),os.listdir(txt_path))
     ds = []
