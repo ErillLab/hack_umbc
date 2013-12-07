@@ -36,7 +36,7 @@
         }
  
         // Convert each block of six to a character
-        for (var i=0; i < bin.length; i+=BLOCK_LENGTH) { 
+        for (var i=0; i < bin.length; i+=BLOCK_LENGTH) {
             output.push(ALPHABET[parseInt(bin.slice(i, i+BLOCK_LENGTH),2)]);
         }
  
