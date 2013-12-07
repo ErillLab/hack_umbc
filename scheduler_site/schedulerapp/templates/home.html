@@ -253,7 +253,7 @@
     $.get( '/scheduler/schedulerapp/get_section_ajax/' + uid, function( data ) {
       var courseStartTime = [10,0];
       var courseEndTime = [11,0];
-      var courseDay = "Wednesday";
+      var courseDay = data["day"];
       var courseTitle = data["course-number"];
       addClass(courseStartTime, courseEndTime, courseDay, courseTitle, uid);
     });
