@@ -101,6 +101,12 @@
     
     ///////////////////////////////
     // Schedule canvas
+    function addClassByUid(uid) {
+      // ajax fetch info with uid
+      addClass(courseStartTime,courseEndTime,courseDay,courseTitle,uid);
+    }
+
+
     // Set a start and end time to display
     // 10am -> 8pm
     var schedStartTime = [10, 0]; // [h, m]
@@ -124,10 +130,10 @@
 
     addClass([16,00],[17,15],"Monday","CMSC 203",1002);
     addClass([16,00],[17,15],"Wednesday","CMSC 203",1002);
-    
-    // Get the image string:
-    //pngURI = screenshot();
 
+    // TODO: check url and populate based off URL
+    
+    
     ///////////////////////////////
     // Live search
     // Credit: http://stackoverflow.com/questions/15103358/live-search-in-jquery
@@ -187,7 +193,7 @@
       $("cancellability").addClass("warning");
       // do colors depending on content
 
-      courseInfo.show();
+      $("#courseInfo").show();
     }
   });
   // Close button
@@ -202,11 +208,7 @@
   });
   $("#reset").click(function(e){
     // (Re-)Initialize everything
-    initializeCanvas($("#schedule"), schedStartTime, schedEndTime, function(clickInfo) {
-      if (clickInfo.classInfo) {
-        showCard(clickInfo.classInfo.uid);
-      }
-    });
+    clearCanvas();
   });
   $("#get-link").click(function(e){
     var uids = [];
