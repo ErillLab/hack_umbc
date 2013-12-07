@@ -69,8 +69,10 @@ def parse_page(page_string):
         line = line.strip()
         if line.startswith("Course-Section") and not is_2010:
             _,dept,course_num,section,_,_,semester,year,_,enrollment_number = line.split()
-            for var in "dept course_num section semester year enrollment_number".split():
+            for var in "dept semester year enrollment_number".split():
                 page_dict[var] = read(eval(var))
+            page_dict["course_num"] = course_num
+            page_dict["section"] = section
         elif line.startswith("Course-Section") and is_2010:
             _,dept,course_num,section,_,_,_,_,_ = line.split()
             for var in "dept course_num section".split():
