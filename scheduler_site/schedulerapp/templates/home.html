@@ -37,7 +37,7 @@
         </dl>
         <table class="table table-bordered">
           <tr class="h3 text-center ratings">
-            <td class="active" title="Affectiveness" data-content="Explanation here."><strong>Affectiveness</strong></td>
+            <td class="active" title="Effectiveness" data-content="Explanation here."><strong>Effectiveness</strong></td>
             <td class="" id="effectiveness">4.6</td>
             <td class="active" title="Grading" data-content="Explanation here."><strong>Grading</strong></td>
             <td class="" id="grading">3.2</td>
@@ -185,7 +185,12 @@
       addClassByUid(uid);
     });
 
-  }); // DOM ready event
+    $(".moreInfo").click(function(e) {
+      var uid = parseInt($(this)[0].innerText);
+      showCard(uid);
+    });
+
+  }); // DOM ready equationsvent
 
 
   ///////////////////////////////
