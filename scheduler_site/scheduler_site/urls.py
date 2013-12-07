@@ -17,5 +17,5 @@ urlpatterns = patterns('',
 
     url(r'schedulerapp/', include('schedulerapp.urls')),
 
-    url('', include('social.apps.django_app.urls', namespace='social'))
+    #url('', include('social.apps.django_app.urls', namespace='social'))
 )
