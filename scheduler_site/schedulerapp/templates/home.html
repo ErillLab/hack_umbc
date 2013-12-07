@@ -80,7 +80,7 @@
           <td>{{ section.courseid }}</td>
           <td><i>{% for session in section.session_set.all %} {{ session }}, {% endfor %}</i></td>
           <td>{{ section.professor }}</td>
-          <td><a href="#"><span class="glyphicon glyphicon-plus"></span>Add to Schedule</a></td>
+          <td><a class="addToSchedule" href="#"><span class="glyphicon glyphicon-plus"></span> Add to Schedule</a></td>
         </tr>
         {% endfor %}
         </tbody>
@@ -165,63 +165,71 @@
       }
     });
 
-    ///////////////////////////////
-    // Section card
-    function showCard(uid) {
-      // Get data by AJAX
-      var ajaxData;
-      $.get( '/scheduler/schedulerapp/get_section_ajax/' + uid, function( data ) {
-          ajaxData = data;
-        });
-      /*cancellability: 4.5
-    course-description: ""
-    course-number: "CMSC202"
-    course-title: "Computer Science II"
-    effectiveness: 4.26625
-    grading: 2.72727272727273
-    instructor: "Bergeron,RyanJ"
-    semester: "Fall"*/
-      // Populate data
-      $("#course-number").text(ajaxData["course-number"]);
-      $("#course-title").text(ajaxData["course-title"]);
-      $("#instructor").text(ajaxData["instructor"]);
-      $("#semester").text(ajaxData["semester"]);
+    $(".addToSchedule").click(function(e) {
+      var uid = parseInt($(this).parent().siblings()[0].innerText);
+      addClassByUid(uid);
+    });
 
-      $("#effectiveness").text(Number((parseFloat(ajaxData["effectiveness"])).toFixed(1)));
-      $("#grading").text(Number((parseFloat(ajaxData["grading"])).toFixed(1)));
-      $("#cancellability").text(Number((parseFloat(ajaxData["cancellability"])).toFixed(1)));
-      
-      $("#course-description").text(ajaxData["course-description"]);
-      
-      /*$("#section").text(ajaxData["section"]);
-      $("#section-type").text(ajaxData["section-type"]);
-      $("#credits").text(ajaxData["credits"]);
-      $("#prereqs").text(ajaxData["prereqs"]);
-      $("#coreq").text(ajaxData["coreq"]);*/
+  }); // DOM ready event
 
-      $("#section").text("07");
-      $("#section-type").text("Lecture");
-      $("#credits").text("3.0");
-      $("#prereqs").text("None");
-      $("#coreq").text("None");
 
-      // Set colors for the ratings
-      var ratings = [$("#effectiveness"), $("#grading"), $("#cancellability")];
-      for (var i = 0; i < ratings.length; i++) {
-        var rating = parseFloat(ratings[i].text());
-        if (rating < 2.0) {
-          ratings[i].addClass("danger");
-        } else if (rating >= 2.0 && rating < 3.75) {
-          ratings[i].addClass("warning");
-        } else {
-          ratings[i].addClass("success");
-        }
+  ///////////////////////////////
+  // Section card
+  function showCard(uid) {
+    // Get data by AJAX
+    var ajaxData;
+    $.get( '/scheduler/schedulerapp/get_section_ajax/' + uid, function( data ) {
+        ajaxData = data;
+      });
+    /*cancellability: 4.5
+  course-description: ""
+  course-number: "CMSC202"
+  course-title: "Computer Science II"
+  effectiveness: 4.26625
+  grading: 2.72727272727273
+  instructor: "Bergeron,RyanJ"
+  semester: "Fall"*/
+    // Populate data
+    $("#course-number").text(ajaxData["course-number"]);
+    $("#course-title").text(ajaxData["course-title"]);
+    $("#instructor").text(ajaxData["instructor"]);
+    $("#semester").text(ajaxData["semester"]);
+
+    $("#effectiveness").text(Number((parseFloat(ajaxData["effectiveness"])).toFixed(1)));
+    $("#grading").text(Number((parseFloat(ajaxData["grading"])).toFixed(1)));
+    $("#cancellability").text(Number((parseFloat(ajaxData["cancellability"])).toFixed(1)));
+    
+    $("#course-description").text(ajaxData["course-description"]);
+    
+    /*$("#section").text(ajaxData["section"]);
+    $("#section-type").text(ajaxData["section-type"]);
+    $("#credits").text(ajaxData["credits"]);
+    $("#prereqs").text(ajaxData["prereqs"]);
+    $("#coreq").text(ajaxData["coreq"]);*/
+
+    $("#section").text("07");
+    $("#section-type").text("Lecture");
+    $("#credits").text("3.0");
+    $("#prereqs").text("None");
+    $("#coreq").text("None");
+
+    // Set colors for the ratings
+    var ratings = [$("#effectiveness"), $("#grading"), $("#cancellability")];
+    for (var i = 0; i < ratings.length; i++) {
+      var rating = parseFloat(ratings[i].text());
+      if (rating < 2.0) {
+        ratings[i].addClass("danger");
+      } else if (rating >= 2.0 && rating < 3.75) {
+        ratings[i].addClass("warning");
+      } else {
+        ratings[i].addClass("success");
       }
-
-      // Display!
-      $("#courseInfo").show();
     }
-  });
+
+    // Display!
+    $("#courseInfo").show();
+  }
+
   // Close button
   $("#closeCard").click(function(e){
     $("#courseInfo").hide();
@@ -250,16 +258,15 @@
   // AJAX
   function addClassByUid(uid) {
     // Get data by AJAX
-    var ajaxData;
     $.get( '/scheduler/schedulerapp/get_section_ajax/' + uid, function( data ) {
-      ajaxData = data;
-    });
-    
       var courseStartTime = [10,0];
       var courseEndTime = [11,0];
       var courseDay = "Wednesday";
-      var courseTitle = ajaxData["course-number"];
+      var courseTitle = data["course-number"];
       addClass(courseStartTime, courseEndTime, courseDay, courseTitle, uid);
+    });
+    
+      
   }
   
 </script>
