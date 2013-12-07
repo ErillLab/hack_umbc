@@ -27,5 +27,12 @@ def get_section_info_ajax(request, uid):
     json_resp = {}
     json_resp['course-number'] = section.course.dept + section.course.number
     json_resp['course-title'] = section.course.title
+    json_resp['course-description'] = section.course.description
+    json_resp['instructor'] = section.professor.name
+    json_resp['semester'] = section.semester
+    json_resp['effectiveness'] = section.evaluation.effectiveness
+    json_resp['grading'] = section.evaluation.grading
+    json_resp['cancellability'] = section.evaluation.cancelability
+    
     return HttpResponse(json.dumps(json_resp), mimetype="application/json")
 
