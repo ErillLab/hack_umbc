@@ -196,7 +196,8 @@
         $("#fairness").text(Number((parseFloat(ajaxData["fairness"])).toFixed(1)));
         $("#engagingness").text(Number((parseFloat(ajaxData["engagingness"])).toFixed(1)));
         
-        $("#course-description").text(ajaxData["course-description"]);
+        //$("#course-description").text(ajaxData["course-description"]);
+        $("#course-description").text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ornare facilisis ligula, nec luctus magna pellentesque commodo. Ut aliquam nulla sit amet suscipit fringilla. Donec facilisis feugiat dignissim. Pellentesque imperdiet enim quis commodo volutpat. Quisque ipsum tellus, luctus sed dolor ut, porttitor ornare mauris. Nam sollicitudin, sem ac posuere ultricies, tortor dolor volutpat est, vitae sagittis ipsum justo non eros. Fusce sodales faucibus blandit. Praesent consectetur nulla sem, a volutpat erat dictum nec. Aliquam convallis ultrices mattis. Vivamus fringilla tristique ligula, sed eleifend justo semper vitae.");
         
         /*$("#section").text(ajaxData["section"]);
         $("#section-type").text(ajaxData["section-type"]);
@@ -264,8 +265,8 @@
   function addClassByUid(uid) {
     // Get data by AJAX
     $.get( '/scheduler/schedulerapp/get_section_ajax/' + uid, function( data ) {
-      var courseStartTime = [10,0];
-      var courseEndTime = [11,0];
+      var courseStartTime = [data["sessions"][0]["time-start-hr"], data["sessions"][0]["time-start-min"]];
+      var courseEndTime = [data["sessions"][0]["time-end-hr"],data["sessions"][0]["time-end-min"]];
       var courseDay = data["day"];
       var courseTitle = data["course-number"];
       addClass(courseStartTime, courseEndTime, courseDay, courseTitle, uid);
