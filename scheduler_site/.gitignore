@@ -5,3 +5,5 @@
 
 sitestatic/
 *.pkl
+
+*~

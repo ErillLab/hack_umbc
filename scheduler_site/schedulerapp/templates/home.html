@@ -15,7 +15,11 @@
 </div>
 
 <div class="col-md-3">
-share
+    <ul class="list-group">
+        <li class="list-group-item"><button type="button" id="screenshot" class="btn btn-primary btn-lg center-block"><span class="glyphicon glyphicon-camera"></span> Screenshot</button></li>
+        <li class="list-group-item"><button type="button" id="reset" class="btn btn-primary btn-lg center-block"><span class="glyphicon glyphicon-remove-circle"></span> Clear Schedule</button></li>
+        <li class="list-group-item"><button type="button" id="get-link" class="btn btn-primary btn-lg center-block"><span class="glyphicon glyphicon-link"></span> Get Link</button></li>
+    </ul>
 </div>
 </div>
 
@@ -180,10 +184,7 @@ share
       $("effectiveness").addClass("warning");
       $("grading").addClass("warning");
       $("cancellability").addClass("warning");
-
-      if () {
-
-      }
+      // do colors depending on content
 
       courseInfo.show();
     }
@@ -193,6 +194,8 @@ share
     $("#courseInfo").hide();
   });
   
+  ///////////////////////////////
+  // 
   
 </script>
 
