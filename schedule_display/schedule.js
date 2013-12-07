@@ -1,9 +1,24 @@
 // Initialize "global" variables
-var columns, rows, canvasClickHandler, canvasW, canvasH, pad, cellW, cellH, canvas, context, schedStartTime, schedEndTime, weekdays, classes, gridText;
+var columns, rows, canvasClickHandler, canvasW, canvasH, pad, cellW, cellH, canvas, context, schedStartTime, schedEndTime, weekdays, classes, gridText, fontHeight, pillStyle, backgroundColor;
 
 function initializeCanvas(canvasSelector, timesStart, timesEnd, clickHandler) {
-	// Set script variables
+	// Initialize drawing objects
 	canvas = canvasSelector; // must be the jquery selector object, i.e.: $("#schedule")
+	context = canvas.get(0).getContext("2d");
+
+	// Styling
+	fontHeight = 12;
+	//pillStyle = "rgba(172, 209, 233, 0.5)";
+	pillStyle = "rgba(109, 146, 155, 0.5)";
+	//pillStyle = "rgba(232, 208, 169, 0.5)";
+	backgroundColor = "rgb(245, 250, 250)";
+
+	// Fill with the background color
+	context.fillStyle = backgroundColor;
+	context.fillRect(0, 0, canvas[0].width, canvas[0].height)
+	context.fillStyle = "black";
+
+	// Initialize a bunch of crap
 	columns = 1+5; // time column + days of the week
 	rows = timesEnd[0] - timesStart[0] + 2;
 	canvasClickHandler = clickHandler;
@@ -12,18 +27,18 @@ function initializeCanvas(canvasSelector, timesStart, timesEnd, clickHandler) {
 	pad = 10;
 	cellW = Math.floor((canvasW - (2 * pad)) / columns);
 	cellH = Math.floor((canvasH - (2 * pad)) / rows);
-	context = canvas.get(0).getContext("2d");
 	schedStartTime = timesStart; // [h, m]
 	schedEndTime = timesEnd;
 	weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 	classes = [];
-		gridText = [];
+	gridText = [];
 	for (var i = 0; i < rows; i++) {
 		gridText[i] = [];
 		for (var j = 0; j < columns; j++) {
 			gridText[i][j] = "";
 		}
 	}
+
 	// Event listeners
 	canvas.click(function(e) {
 		xyCoords = getCursorPosition(e);
@@ -123,7 +138,6 @@ function drawTextInCell(i, j, text, center){
 
 	context.textAlign = (center ? "center":"start");
 	context.textBaseline = "top";
-	var fontHeight = 16;
 	context.font = "bold "+fontHeight+"px Arial";
 
 	//var metrics = context.measureText(text);
@@ -139,10 +153,13 @@ function drawTextInCell(i, j, text, center){
 function drawTextXY(x, y, text, hcenter, vcenter, shadow) {
 	context.textAlign = (hcenter ? "center":"start");
 	context.textBaseline = "top";
-	var fontHeight = 16;
 	context.font = "bold "+fontHeight+"px Arial";
-	oldShadow = context.shadowBlur;
-	context.shadowBlur = (shadow ? shadow : oldShadow);
+	if (shadow) {
+		oldShadow = context.shadowBlur;
+		oldFillStyle = context.fillStyle;
+		context.fillStyle = "white";
+		context.shadowBlur = 5;
+	}
 
 	var lines = text.split("\n");
 	y += (vcenter ? -lines.length*fontHeight/2:0)
@@ -150,7 +167,11 @@ function drawTextXY(x, y, text, hcenter, vcenter, shadow) {
 		context.fillText(lines[i], x, y);
 		y += fontHeight;
 	}
-	context.shadowBlur = oldShadow;
+
+	if (shadow) {
+		context.fillStyle = oldFillStyle;
+		context.shadowBlur = oldShadow;
+	}
 }
 
 function drawRoundRect(x, y, width, height, radius, fill, stroke) {
@@ -177,9 +198,13 @@ function drawRoundRect(x, y, width, height, radius, fill, stroke) {
 	if (fill) {
 		oldFillStyle = context.fillStyle;
 		context.shadowBlur = 5;
+		context.shadowOffsetX = 1;
+		context.shadowOffsetY = 1;
 		context.shadowColor = "black";
 		context.fillStyle = fill;
 		context.fill();
+		context.shadowOffsetX = 0;
+		context.shadowOffsetY = 0;
 		context.shadowBlur = 0;
 		context.fillStyle = oldFillStyle;
 	}     
@@ -191,9 +216,6 @@ function screenshot() {
 
 ///////////////////////////////////
 // Schedule drawing
-//var schedStartTime = [10, 0]; // [h, m]
-//var schedEndTime = [20, 0];
-
 
 // Update function -- call this to redraw all the text in gridText!
 function drawGridText() {
@@ -254,13 +276,13 @@ function addClass(classStartTime, classEndTime, day, title) {
 	var pillY = timeToY(classStartTime);
 	var pillW = cellW - 5;
 	var pillH = timeToY(classEndTime)-timeToY(classStartTime);
-	drawRoundRect(pillX, pillY, pillW, pillH, 5, "rgba(0, 0, 200, 0.5)");
+	drawRoundRect(pillX, pillY, pillW, pillH, 5, pillStyle);
 	
 	// Draw text
 	var text = title+"\n"+timeToStr(classStartTime)+" - "+timeToStr(classEndTime);
 	var textX = pillX + pillW / 2;
 	var textY = pillY + pillH / 2;
-	drawTextXY(textX,textY,text,true,true);
+	drawTextXY(textX,textY,text,true,true,true);
 
 	// Keep track of these guys
 	classObj = new Object();
