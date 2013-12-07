@@ -245,6 +245,16 @@ function timeToStr(time) {
 }
 
 function dayToJ(day) {
+	if (day == "Mon")
+		day = "Monday";
+	if (day == "Tue")
+			day = "Tuesday";
+	if (day == "Wed")
+			day = "Wednesday";
+	if (day == "Thu")
+			day = "Thursday";
+	if (day == "Fri")
+			day = "Friday";
 	return 1+weekdays.indexOf(day.charAt(0).toUpperCase() + day.substr(1).toLowerCase());
 }
 
