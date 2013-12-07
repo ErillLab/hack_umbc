@@ -13,50 +13,41 @@
 		</style>
 	</head>
 	<body>
-
+	<div>
+		<canvas id="schedule"></canvas>
+	</div>
+	<div>
+		<textarea id="clickInfo" style="width: 700px; height: 250px; margin-left: 100px;"></textarea>
+	</div>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-		<script type="text/javascript">
-			// number of cells
-			var horzCells = 5+1;
-			var vertCells = 10+1;
+	<script src="schedule.js"></script>
+	<script type="text/javascript">
+		// Make sure the canvas size is set explicitly (this should be done in the CSS)
+		$("#schedule")[0].width = $(window).width() * 0.7;
+		$("#schedule")[0].height = $(window).height() * 0.6;
 
-			//grid width and height
-			var bw = $(window).width() * 0.6;
-			var bh = $(window).height() * 0.8;
-			
-			//padding around grid
-			var p = 10;
+		// Set a start and end time to display
+		// 10am -> 8pm
+		var schedStartTime = [10, 0]; // [h, m]
+		var schedEndTime = [20, 0];
 
-			//size of canvas
-			var cw = bw + (p*2) + 1;
-			var ch = bh + (p*2) + 1;
+		// Initialize everything
+		initializeCanvas($("#schedule"), schedStartTime, schedEndTime, function(clickInfo) {
+			// Edit this to choose what to do when class is clicked
+			console.log(clickInfo);
+			$('#clickInfo').val(JSON.stringify(clickInfo));
+		});
+		
+		// Add classes
+		addClass([17,30],[19,10],"Tuesday","CHEM 437");
+		addClass([17,30],[19,10],"Thursday","CHEM 437");
+		addClass([13,00],[14,10],"Monday","MATH 221");
+		addClass([13,00],[14,10],"Wednesday","MATH 221");
+		addClass([16,00],[17,15],"Monday","CMSC 203");
+		addClass([16,00],[17,15],"Wednesday","CMSC 203");
 
-			// cell sizes
-			var cellW = Math.floor(bw / horzCells);
-			var cellH = Math.floor(bh / vertCells);
-
-			var canvas = $('<canvas/>').attr({width: cw, height: ch}).appendTo('body');
-
-			var context = canvas.get(0).getContext("2d");
-
-			function drawBoard(){
-				for (var x = 0; x <= bw; x += cellW) {
-					context.moveTo(0.5 + x + p, p);
-					context.lineTo(0.5 + x + p, bh + p);
-				}
-
-
-				for (var x = 0; x <= bh; x += cellH) {
-					context.moveTo(p, 0.5 + x + p);
-					context.lineTo(bw + p, 0.5 + x + p);
-				}
-
-				context.strokeStyle = "black";
-				context.stroke();
-			}
-
-			drawBoard();
-
-		</script>
+		// Get the image string:
+		//screenshot();
+	</script>
 	</body>
 </html>
