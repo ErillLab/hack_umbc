@@ -21,21 +21,31 @@ share
 
 <h2>Search for courses</h2>
 
-<!-- <div class="pull-right"><input type="text" value="search"></div> -->
-
 {% for course in courses %}
 <div class="panel panel-default">
-  <div class="panel-heading">{{course.title}}</div>
+  <div class="panel-heading"><b>{{course}}</b></div>
   <div class="panel-body">
-    <p>{{ course.description }}</p>
-    <table class="table">
+    <p>[course description] {{ course.description }}</p>
+    sections
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>Course id</th>
+          <th>Class time</th>
+          <th>Taught by</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
       {% for section in course.section_set.all %}
       <tr>
-        <td>{% for prof in section.professors.all %} {{ prof }}, {% endfor %}</td>
         <td>{{ section.courseid }}</td>
+        <td>{% for session in section.session_set.all %} {{ session }}, {% endfor %}</td>
+        <td>{% for prof in section.professors.all %} {{ prof }}, {% endfor %}</td>
+        <td><button class="btn">More info</button> <button class="btn">Enroll</button></td>
       </tr>
       {% endfor %}
-
+      </tbody>
   </div>
 
 </div>

@@ -1,0 +1,71 @@
+  <html>
+	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<style type="text/css">
+			body {
+				background: #ddd;
+				margin: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="classSearch">
+			<form id="live-search" action="" class="styled" method="post">
+				<fieldset>
+					<input type="text" class="text-input" id="filter" value="" />
+				</fieldset>
+			</form>
+			<div id="classList"></div>
+		</div>
+
+
+		<script type="text/javascript">
+			var commits = ["(main)	Created main loop & timing control	14 hours ago", "(main)	Enabled config file parsing	9 hours ago", "(main)	Misc bugfixes	5 hours ago", "(main)	Code additions/edits	4 hours ago", "(main)	More code	4 hours ago", "(branch)	Here have code	4 hours ago", "(branch)	aaaaaaaaa	3 hours ago", "(main)	adkfjslkdfjsdklfj	3 hours ago", "(main)	My hands are typing words	2 hours ago", "(main)	Haaaaaaaaands	2 hours ago"];
+			function populateClassList() {
+				for (var i = 0; i < 20; i++) {
+					var classObj = $(document.createElement("div"));
+					classObj.text(commits[Math.floor(Math.random()*commits.length)]);
+					$("#classList").append(classObj);
+				}
+			}
+
+			$(document).ready(function(){
+				populateClassList();
+
+
+				$("#filter").keyup(function(){
+					// Retrieve the input field text and reset the count to zero
+					var filter = $(this).val(), count = 0;
+
+					// Loop through the comment list
+					$("#classList > div").each(function(){
+
+						// If the list item does not contain the text phrase fade it out
+						if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+							$(this).fadeOut();
+
+						// Show the list item if the phrase matches and increase the count by 1
+						} else {
+							$(this).show();
+							count++;
+						}
+					});
+
+					// Update the count
+					//var numberItems = count;
+					//$("#filter-count").text("Number of Comments = "+count);
+				});
+			});
+
+			
+		</script>
+	</body>
+</html>

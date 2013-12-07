@@ -82,3 +82,9 @@ class Session(models.Model):
     room = models.CharField(max_length=50)
     section = models.ForeignKey(Section)
 
+    def __unicode__(self):
+        return u'%s %d:%d - %d:%d' % (self.day_of_the_week,
+                                      self.time_start_hr,
+                                      self.time_start_min,
+                                      self.time_end_hr,
+                                      self.time_end_min)
