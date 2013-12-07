@@ -27,7 +27,7 @@ class Course(models.Model):
 class Section(models.Model):
     course = models.ForeignKey('Course', null=False, blank=False)
     courseid = models.IntegerField() # section-specific course id
-    professors = models.ManyToManyField('Professor',)
+    professor = models.ForeignKey('Professor')
     semester = models.CharField(max_length=50)
     yr = models.IntegerField()
     evaluation = models.OneToOneField('Evaluation',
@@ -77,7 +77,7 @@ class Session(models.Model):
     section = models.ForeignKey(Section)
 
     def __unicode__(self):
-        return u'%s %d:%d - %d:%d' % (self.day_of_the_week,
+        return u'%s %02d:%02d - %02d:%02d' % (self.day_of_the_week,
                                       self.time_start_hr,
                                       self.time_start_min,
                                       self.time_end_hr,

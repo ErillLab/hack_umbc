@@ -25,14 +25,15 @@ share
   <input type="search" class="form-control" id="filter" placeholder="Search for classes..." />
 </div>
 
-<div id="courseList" class="row">
+<div id="courseList" class="row" id="accordion">
   {% for course in courses %}
   <div class="panel panel-default">
-    <div class="panel-heading"><b>{{course}}</b></div>
+    <div class="panel-heading">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{course.dept}}-{{course.number}}">{{course}}</a></div>
+
+    <div id="collapse-{{course.dept}}-{{course.number}}" class="panel-collapse collapse ">
     <div class="panel-body">
-      <p>[course description] {{ course.description }}</p>
-      sections
-      <table class="table table-condensed">
+      <table class="table table-striped">
         <thead>
           <tr>
             <th>Course id</th>
@@ -45,13 +46,14 @@ share
         {% for section in course.section_set.all %}
         <tr>
           <td>{{ section.courseid }}</td>
-          <td>{% for session in section.session_set.all %} {{ session }}, {% endfor %}</td>
-          <td>{% for prof in section.professors.all %} {{ prof }}, {% endfor %}</td>
-          <td><button class="btn">More info</button> <button class="btn">Enroll</button></td>
+          <td><i>{% for session in section.session_set.all %} {{ session }}, {% endfor %}</i></td>
+          <td>{{ section.professor }}</td>
+          <td><a href="#">More info</a> | <a href="#"> Enroll</a></td>
         </tr>
         {% endfor %}
         </tbody>
       </table>
+    </div>
     </div>
   </div>
   {% endfor %}
