@@ -1,0 +1,1 @@
+Directory contains all source for sceq_mining
