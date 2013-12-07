@@ -20,12 +20,9 @@ share
 </div>
 
 <h2>Search for courses</h2>
-<div class="row">
-  <form id="live-search" action="" class="styled" method="post">
-    <fieldset>
-      <input type="text" class="text-input" id="filter" value="" />
-    </fieldset>
-  </form>
+<div class="right-inner-addon">
+  <i class="icon-search"></i>
+  <input type="search" class="form-control" id="filter" placeholder="Search for classes..." />
 </div>
 
 <div id="courseList" class="row">
@@ -61,6 +58,8 @@ share
 </div>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script src="{% static "schedule.js" %}"></script>
 <script type="text/javascript">
   $(document).ready(function(){
