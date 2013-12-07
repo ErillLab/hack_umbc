@@ -22,6 +22,7 @@ def list_all_courses(request):
 
 
 def get_section_info_ajax(request, uid):
+    #uid = request.POST['uid']
     section = models.Section.objects.get(courseid=uid)
     json_resp = {}
     json_resp['course-number'] = section.course.dept + section.course.number

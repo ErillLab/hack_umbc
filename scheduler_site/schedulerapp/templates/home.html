@@ -104,11 +104,13 @@
     function addClassByUid(uid) {
       // ajax fetch info with uid
       // Get data by AJAX
-      $.get( "{% url get_section_info_ajax "+uid+"}", function( data ) {
+      
+
+      $.get( '/scheduler/schedulerapp/get_section_ajax/' + uid, function( data ) {
         console.log(data);
       });
 
-      addClass(courseStartTime,courseEndTime,courseDay,courseTitle,uid);
+       addClass(courseStartTime,courseEndTime,courseDay,courseTitle,uid);
     }
 
 
@@ -176,7 +178,7 @@
     // Section card
     function showCard(uid) {
       // Get data by AJAX
-      $.get( "{% url get_section_info_ajax "+uid+"}", function( data ) {
+    $.get( '/scheduler/schedulerapp/get_section_ajax/' + uid, function( data ) {
         console.log(data);
       });
 
