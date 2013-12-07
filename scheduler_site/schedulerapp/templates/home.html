@@ -118,17 +118,24 @@
     });
     
     // Add classes
-    addClass([17,30],[19,10],"Tuesday","CHEM 437",1000);
-    addClass([17,30],[19,10],"Thursday","CHEM 437",1000);
+    // addClass([17,30],[19,10],"Tuesday","CHEM 437",1000);
+    // addClass([17,30],[19,10],"Thursday","CHEM 437",1000);
 
-    addClass([13,00],[14,10],"Monday","MATH 221",1001);
-    addClass([13,00],[14,10],"Wednesday","MATH 221",1001);
+    // addClass([13,00],[14,10],"Monday","MATH 221",1001);
+    // addClass([13,00],[14,10],"Wednesday","MATH 221",1001);
 
-    addClass([16,00],[17,15],"Monday","CMSC 203",1002);
-    addClass([16,00],[17,15],"Wednesday","CMSC 203",1002);
+    // addClass([16,00],[17,15],"Monday","CMSC 203",1002);
+    // addClass([16,00],[17,15],"Wednesday","CMSC 203",1002);
 
-    // TODO: check url and populate based off URL
-    
+    // Check url and populate based off URL
+    if (document.URL.indexOf("|") > -1) {
+      var urlParts = document.URL.split("/");
+      var urlCode = urlParts[-1];
+      var uids = urlParts.split("/");
+      for (int i = 0; i < uids.length; i++){
+        addClassByUid(parseInt(uids[i]));
+      }
+    }
     
     ///////////////////////////////
     // Live search
