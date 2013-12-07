@@ -118,14 +118,14 @@
     });
     
     // Add classes
-    // addClass([17,30],[19,10],"Tuesday","CHEM 437",1000);
-    // addClass([17,30],[19,10],"Thursday","CHEM 437",1000);
+    addClass([17,30],[19,10],"Tuesday","CHEM 437",1000);
+    addClass([17,30],[19,10],"Thursday","CHEM 437",1000);
 
-    // addClass([13,00],[14,10],"Monday","MATH 221",1001);
-    // addClass([13,00],[14,10],"Wednesday","MATH 221",1001);
+    addClass([13,00],[14,10],"Monday","MATH 221",1001);
+    addClass([13,00],[14,10],"Wednesday","MATH 221",1001);
 
-    // addClass([16,00],[17,15],"Monday","CMSC 203",1002);
-    // addClass([16,00],[17,15],"Wednesday","CMSC 203",1002);
+    addClass([16,00],[17,15],"Monday","CMSC 203",1002);
+    addClass([16,00],[17,15],"Wednesday","CMSC 203",1002);
 
     // Check url and populate based off URL
     if (document.URL.indexOf("|") > -1) {
@@ -181,6 +181,10 @@
   ///////////////////////////////
   // Section card
   function showCard(uid) {
+    if (uid == 1001) {
+      $("#courseInfo").show();
+      return;
+    }
     // Get data by AJAX
     var ajaxData;
     $.get( '/scheduler/schedulerapp/get_section_ajax/' + uid, function( data ) {
