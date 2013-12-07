@@ -37,12 +37,22 @@
         </dl>
         <table class="table table-bordered">
           <tr class="h3 text-center ratings">
+            <td class="active" title="Affectiveness" data-content="Explanation here."><strong>Affectiveness</strong></td>
+            <td class="" id="effectiveness">4.6</td>
+            <td class="active" title="Grading" data-content="Explanation here."><strong>Grading</strong></td>
+            <td class="" id="grading">3.2</td>
+            <td class="active" title="Cancellability" data-content="Explanation here."><strong>Cancellability</strong></td>
+            <td class="" id="cancellability">1.2</td>
+          </tr>
+        </table>
+        <table class="table table-bordered">
+          <tr class="h3 text-center ratings">
             <td class="active" title="Approachableness" data-content="Explanation here."><strong>Approachableness</strong></td>
             <td class="" id="approachableness">4.6</td>
             <td class="active" title="Fairness" data-content="Explanation here."><strong>Fairness</strong></td>
             <td class="" id="fairness">3.2</td>
             <td class="active" title="Engagingness" data-content="Explanation here."><strong>Engagingness</strong></td>
-            <td class="" id="cancellability">1.2</td>
+            <td class="" id="engagingness">1.2</td>
           </tr>
         </table>
     </div>
@@ -75,7 +85,7 @@
         <tbody>
         {% for section in course.section_set.all %}
         <tr>
-          <td>{{ section.courseid }}</td>
+          <td><a class="moreInfo link">{{ section.courseid }}</a></td>
           <td><i>{% for session in section.session_set.all %} {{ session }}, {% endfor %}</i></td>
           <td>{{ section.professor }}</td>
           <td><a class="addToSchedule link" ><span class="glyphicon glyphicon-plus"></span> Add to Schedule</a></td>
@@ -197,6 +207,10 @@
         $("#instructor").text(ajaxData["instructor"]);
         $("#semester").text(ajaxData["semester"]);
 
+        $("#effectiveness").text(Number((parseFloat(ajaxData["effectiveness"])).toFixed(1)));
+        $("#grading").text(Number((parseFloat(ajaxData["grading"])).toFixed(1)));
+        $("#cancellability").text(Number((parseFloat(ajaxData["cancellability"])).toFixed(1)));
+
         $("#approachableness").text(Number((parseFloat(ajaxData["approachableness"])).toFixed(1)));
         $("#fairness").text(Number((parseFloat(ajaxData["fairness"])).toFixed(1)));
         $("#engagingness").text(Number((parseFloat(ajaxData["engagingness"])).toFixed(1)));
@@ -217,7 +231,7 @@
         $("#coreq").text("None");
 
         // Set colors for the ratings
-        var ratings = [$("#engagingness"), $("#fairness"), $("#approachableness")];
+        var ratings = [$("#engagingness"), $("#fairness"), $("#approachableness"), $("#effectiveness"), $("#grading"), $("#cancellability")];
         for (var i = 0; i < ratings.length; i++) {
           var rating = parseFloat(ratings[i].text());
           if (rating < 2.0) {
