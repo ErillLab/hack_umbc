@@ -8,8 +8,17 @@ from django.template import RequestContext
 
 
 def home(request):
+
+    all_courses = models.Course.objects.all()
     return render_to_response("home.html",
-                              {},
+                              {'courses': all_courses},
                               context_instance=RequestContext(request))
+
+def list_all_courses(request):
+    all_courses = models.Course.objects.all()
+    return render_to_response("list_all_courses.html",
+                              {'courses': all_courses},
+                              context_instance=RequestContext(request))
+
 
 

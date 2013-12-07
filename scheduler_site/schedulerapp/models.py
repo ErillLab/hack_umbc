@@ -12,8 +12,17 @@ class Course(models.Model):
     title = models.CharField(max_length=50)
     type = models.CharField(max_length=50)
     description = models.TextField()
-    prerequisites = models.ManyToManyField('Course', related_name='prerequsites_all')
-    corequsites = models.ManyToManyField('Course', related_name='corequsites_all')
+    prerequisites = models.ManyToManyField('Course',
+                                           null=True,
+                                           blank=True,
+                                           related_name='prerequsites_all')
+    corequsites = models.ManyToManyField('Course',
+                                         null=True,
+                                         blank=True,
+                                         related_name='corequsites_all')
+
+    def __unicode__(self):
+        return u'%s%d %s' % (self.dept, self.number, self.title)
 
 class Section(models.Model):
     SEMESTERS = (
@@ -22,17 +31,26 @@ class Section(models.Model):
         ('spring', 'Spring'),
         ('summer', 'Summer'),
     )
-    course_id = models.IntegerField() # section-specific course id
-    professor = models.ManyToManyField('Professor')
+    course = models.ForeignKey('Course', null=False, blank=False)
+    courseid = models.IntegerField() # section-specific course id
+    professors = models.ManyToManyField('Professor',)
     semester = models.CharField(max_length=50, choices=SEMESTERS)
     year = models.IntegerField()
-    evaluation = models.OneToOneField('Evaluation')
+    evaluation = models.OneToOneField('Evaluation',
+                                      null=False,
+                                      blank=False)
+
+    def __unicode__(self):
+        return u'%s [section: %d]' % (self.course, self.courseid)
 
 class Evaluation(models.Model):
     pass
 
 class Professor(models.Model):
     name = models.CharField(max_length=128)
+
+    def __unicode__(self):
+        return u'%s' % self.name
     
 class Major(models.Model):
     courses = models.ManyToManyField(Course)
@@ -41,8 +59,8 @@ class Users(models.Model):
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
     email = models.CharField(max_length=256)
-    sections = models.ManyToManyField(Section)
-    friends = models.ManyToManyField('Users')
+    sections = models.ManyToManyField(Section, blank=True, null=True)
+    friends = models.ManyToManyField('Users', blank=True, null=True)
     majors = models.ManyToManyField(Major)
 
 
