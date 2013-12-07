@@ -1,27 +1,30 @@
 #schedule {
-    width: 500;
-    height: 300;
+	width: 500;
+	height: 300;
 }
 
 .right-inner-addon {
-    position: relative;
+	position: relative;
 }
 .right-inner-addon input {
-    padding-right: 30px;    
+	padding-right: 30px;    
 }
 .right-inner-addon i {
-    position: absolute;
-    right: 0px;
-    padding: 10px 12px;
+	position: absolute;
+	right: 0px;
+	padding: 10px 12px;
 }
 
 #courseInfo {
-    display: none;
-    padding-top: 10px;
+	display: none;
+	padding-top: 10px;
 	-moz-box-shadow:    1px 1px 6px 0px #ccc;
 	-webkit-box-shadow: 1px 1px 6px 0px #ccc;
 	box-shadow:         1px 1px 6px 0px #ccc;
+	position: absolute;
+	top: 10%;
+	left: 10%;
 }
 .link {
-    cursor: pointer;
+	cursor: pointer;
 }

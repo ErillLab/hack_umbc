@@ -76,11 +76,11 @@ share
         <table class="table table-bordered">
           <tr class="h3 text-center ratings">
             <td class="active" title="Effectiveness" data-content="Explanation here."><strong>Effectiveness</strong></td>
-            <td class="success" id="effectiveness">4.6</td>
+            <td class="" id="effectiveness">4.6</td>
             <td class="active" title="Grading" data-content="Explanation here."><strong>Grading</strong></td>
-            <td class="warning" id="grading">3.2</td>
+            <td class="" id="grading">3.2</td>
             <td class="active" title="Cancellability" data-content="Explanation here."><strong>Cancellability</strong></td>
-            <td class="danger" id="cancellability">1.2</td>
+            <td class="" id="cancellability">1.2</td>
           </tr>
         </table>
     </div>
@@ -96,7 +96,6 @@ share
     
     ///////////////////////////////
     // Schedule canvas
-
     // Set a start and end time to display
     // 10am -> 8pm
     var schedStartTime = [10, 0]; // [h, m]
@@ -176,6 +175,16 @@ share
       $("effectiveness").text("");
       $("grading").text("");
       $("cancellability").text("");
+
+      // Set colors for the ratings
+      $("effectiveness").addClass("warning");
+      $("grading").addClass("warning");
+      $("cancellability").addClass("warning");
+
+      if () {
+
+      }
+
       courseInfo.show();
     }
   });

@@ -296,6 +296,48 @@ function addClass(classStartTime, classEndTime, day, title, uid) {
 	classes.push(classObj);
 }
 
+function removeClass(uid) {
+	// Clear canvas
+	context.fillStyle = backgroundColor;
+	context.fillRect(0, 0, canvas[0].width, canvas[0].height)
+	context.fillStyle = "black";
+
+	// Draw skeleton of schedule
+	drawGrid();
+
+	// Draw starting schedule
+	addWeekdays();
+	addTimes();
+
+	// Remove class
+	for (var i = classes.length-1; i >= 0; i--) {
+		if (classes[i].uid == uid) {
+			classes.splice(i, 1);
+		}
+	}
+
+	for (var i = 0; i < classes.length; i++) {
+		var classStartTime = classes[i].startTime;
+		var classEndTime = classes[i].endTime;
+		var day = classes[i].day;
+		var title = classes[i].title;
+		var uid = classes[i].uid;
+
+		// Draw background pill
+		var pillX = dayToX(day) + 2;
+		var pillY = timeToY(classStartTime);
+		var pillW = cellW - 5;
+		var pillH = timeToY(classEndTime)-timeToY(classStartTime);
+		drawRoundRect(pillX, pillY, pillW, pillH, 5, pillStyle);
+		
+		// Draw text
+		var text = title+"\n"+timeToStr(classStartTime)+" - "+timeToStr(classEndTime);
+		var textX = pillX + pillW / 2;
+		var textY = pillY + pillH / 2;
+		drawTextXY(textX,textY,text,true,true,true);
+	}
+}
+
 function findClassInXY(xyCoords) {
 	x = xyCoords[0];
 	y = xyCoords[1];
@@ -312,3 +354,4 @@ function findClassInXY(xyCoords) {
 	}
 	return null;
 }
+
