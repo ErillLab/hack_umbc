@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<style type="text/css">
+			body {
+				background: #ddd;
+				margin: 0px;
+			}
+			canvas {
+				background: #fff;
+				border: 1px black dashed;
+				margin: 20px;
+			}
+		</style>
+	</head>
+	<body>
+
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script type="text/javascript">
+			// number of cells
+			var horzCells = 5+1;
+			var vertCells = 10+1;
+
+			//grid width and height
+			var bw = $(window).width() * 0.6;
+			var bh = $(window).height() * 0.8;
+			
+			//padding around grid
+			var p = 10;
+
+			//size of canvas
+			var cw = bw + (p*2) + 1;
+			var ch = bh + (p*2) + 1;
+
+			// cell sizes
+			var cellW = Math.floor(bw / horzCells);
+			var cellH = Math.floor(bh / vertCells);
+
+			var canvas = $('<canvas/>').attr({width: cw, height: ch}).appendTo('body');
+
+			var context = canvas.get(0).getContext("2d");
+
+			function drawBoard(){
+				for (var x = 0; x <= bw; x += cellW) {
+					context.moveTo(0.5 + x + p, p);
+					context.lineTo(0.5 + x + p, bh + p);
+				}
+
+
+				for (var x = 0; x <= bh; x += cellH) {
+					context.moveTo(p, 0.5 + x + p);
+					context.lineTo(bw + p, 0.5 + x + p);
+				}
+
+				context.strokeStyle = "black";
+				context.stroke();
+			}
+
+			drawBoard();
+
+		</script>
+	</body>
+</html>
