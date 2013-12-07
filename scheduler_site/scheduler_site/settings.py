@@ -1,5 +1,7 @@
 # Django settings for scheduler_site project.
 
+import os
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -15,7 +17,7 @@ DATABASES = {
         'NAME': 'hack_umbc',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'sefa',
-        'PASSWORD': '4654654',
+        'PASSWORD': '46544654',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
@@ -61,7 +63,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(__file__)), "sitestatic")
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -72,6 +74,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "schedule_display"),
 )
 
 # List of finder classes that know how to find static files in
@@ -111,6 +114,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(os.path.dirname(os.path.dirname(__file__)), "schedulerapp", "templates"),
 )
 
 INSTALLED_APPS = (
@@ -121,9 +125,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admindocs',
+    'django_extensions',
+    'social.apps.django_app.default',
     'schedulerapp',
 )
 
@@ -155,3 +161,20 @@ LOGGING = {
         },
     }
 }
+
+AUTHENTICATION_BACKENDS = (
+    'social.backends.open_id.OpenIdAuth',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.contrib.messages.context_processors.messages",
+    'social.apps.django_app.context_processors.backends',
+    'social.apps.django_app.context_processors.login_redirect',
+
+)

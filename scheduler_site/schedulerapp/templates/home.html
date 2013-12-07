@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load static from staticfiles %}
+
+
+<h1>My Schedule</h1>
+
+<div class="row">
+    <div class="col-md-8">
+    <canvas id="schedule" width="700" height="300"></canvas>
+    </div>
+<div class="col-md-1">
+</div>
+
+<div class="col-md-3">
+share
+</div>
+</div>
+
+<h2>Search for courses</h2>
+
+<!-- <div class="pull-right"><input type="text" value="search"></div> -->
+
+{% for course in courses %}
+<div class="panel panel-default">
+  <div class="panel-heading">{{course.title}}</div>
+  <div class="panel-body">
+    <p>{{ course.description }}</p>
+    <table class="table">
+      {% for section in course.section_set.all %}
+      <tr>
+        <td>{% for prof in section.professors.all %} {{ prof }}, {% endfor %}</td>
+        <td>{{ section.courseid }}</td>
+      </tr>
+      {% endfor %}
+
+  </div>
+
+</div>
+
+{% endfor %}
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="{% static "schedule.js" %}"></script>
+<script type="text/javascript">
+  // Make sure the canvas size is set explicitly (this should be done in the CSS)
+  //$("#schedule")[0].width = $(window).width() * 0.7;
+  //$("#schedule")[0].height = $(window).height() * 0.6;
+  
+  // Set a start and end time to display
+  // 10am -> 8pm
+  var schedStartTime = [10, 0]; // [h, m]
+  var schedEndTime = [20, 0];
+  
+  // Initialize everything
+  initializeCanvas($("#schedule"), schedStartTime, schedEndTime, function(clickInfo) {
+  // Edit this to choose what to do when class is clicked
+  console.log(clickInfo);
+  //$('#clickInfo').val(JSON.stringify(clickInfo));
+  });
+  
+  // Add classes
+  addClass([17,30],[19,10],"Tuesday","CHEM 437");
+  addClass([17,30],[19,10],"Thursday","CHEM 437");
+  addClass([13,00],[14,10],"Monday","MATH 221");
+  addClass([13,00],[14,10],"Wednesday","MATH 221");
+
+  addClass([16,00],[17,15],"Monday","CMSC 203");
+  addClass([16,00],[17,15],"Wednesday","CMSC 203");
+  
+  // Get the image string:
+  //screenshot();
+</script>
+
+
+{% endblock %}
