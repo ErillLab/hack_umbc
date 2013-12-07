@@ -48,7 +48,7 @@ share
           <td>{{ section.courseid }}</td>
           <td><i>{% for session in section.session_set.all %} {{ session }}, {% endfor %}</i></td>
           <td>{{ section.professor }}</td>
-          <td><a href="#">More info</a> | <a href="#"> Enroll</a></td>
+          <td><a href="#"><span class="glyphicon glyphicon-plus"></span>Add to Schedule</a></td>
         </tr>
         {% endfor %}
         </tbody>
@@ -59,12 +59,44 @@ share
   {% endfor %}
 </div>
 
+<div id="courseInfo" class="container">
+    <div class="well">
+        <span id="closeCard" class="glyphicon glyphicon-remove pull-right link"></span>
+        <h1 id="course-number">MATH 221 <small id="course-title">Intro to Linear Algebra</small></h1>
+        <blockquote id="course-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ornare facilisis ligula, nec luctus magna pellentesque commodo. Ut aliquam nulla sit amet suscipit fringilla. Donec facilisis feugiat dignissim. Pellentesque imperdiet enim quis commodo volutpat. Quisque ipsum tellus, luctus sed dolor ut, porttitor ornare mauris. Nam sollicitudin, sem ac posuere ultricies, tortor dolor volutpat est, vitae sagittis ipsum justo non eros. Fusce sodales faucibus blandit. Praesent consectetur nulla sem, a volutpat erat dictum nec. Aliquam convallis ultrices mattis. Vivamus fringilla tristique ligula, sed eleifend justo semper vitae.</blockquote>
+        <dl class="dl-horizontal">
+          <dt>Instructor</dt> <dd id="instructor">Draganescu, Andrei</dd>
+          <dt>Section</dt> <dd id="section">02</dd>
+          <dt>Section Type</dt> <dd id="section-type">Lecture</dd>
+          <dt>Semester</dt> <dd id="semester">Fall 2013</dd>
+          <dt>Credits</dt> <dd id="credits">3.0</dd>
+          <dt>Pre-Requirements</dt> <dd id="prereqs">MATH 151</dd>
+          <dt>Co-Requirements</dt> <dd id="coreq">None</dd>
+        </dl>
+        <table class="table table-bordered">
+          <tr class="h3 text-center ratings">
+            <td class="active" title="Effectiveness" data-content="Explanation here."><strong>Effectiveness</strong></td>
+            <td class="success" id="effectiveness">4.6</td>
+            <td class="active" title="Grading" data-content="Explanation here."><strong>Grading</strong></td>
+            <td class="warning" id="grading">3.2</td>
+            <td class="active" title="Cancellability" data-content="Explanation here."><strong>Cancellability</strong></td>
+            <td class="danger" id="cancellability">1.2</td>
+          </tr>
+        </table>
+    </div>
+</div>
+
+
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script src="{% static "schedule.js" %}"></script>
 <script type="text/javascript">
   $(document).ready(function(){
+    
+    ///////////////////////////////
+    // Schedule canvas
+
     // Set a start and end time to display
     // 10am -> 8pm
     var schedStartTime = [10, 0]; // [h, m]
@@ -72,19 +104,22 @@ share
     
     // Initialize everything
     initializeCanvas($("#schedule"), schedStartTime, schedEndTime, function(clickInfo) {
-      // Edit this to choose what to do when class is clicked
-      console.log(clickInfo);
+      //console.log(clickInfo);
       //$('#clickInfo').val(JSON.stringify(clickInfo));
+      if (clickInfo.classInfo) {
+        showCard(clickInfo.classInfo.uid);
+      }
     });
     
     // Add classes
-    addClass([17,30],[19,10],"Tuesday","CHEM 437");
-    addClass([17,30],[19,10],"Thursday","CHEM 437");
-    addClass([13,00],[14,10],"Monday","MATH 221");
-    addClass([13,00],[14,10],"Wednesday","MATH 221");
+    addClass([17,30],[19,10],"Tuesday","CHEM 437",1000);
+    addClass([17,30],[19,10],"Thursday","CHEM 437",1000);
 
-    addClass([16,00],[17,15],"Monday","CMSC 203");
-    addClass([16,00],[17,15],"Wednesday","CMSC 203");
+    addClass([13,00],[14,10],"Monday","MATH 221",1001);
+    addClass([13,00],[14,10],"Wednesday","MATH 221",1001;
+
+    addClass([16,00],[17,15],"Monday","CMSC 203",1002);
+    addClass([16,00],[17,15],"Wednesday","CMSC 203",1002);
     
     // Get the image string:
     //pngURI = screenshot();
@@ -121,7 +156,32 @@ share
         return false;
       }
     });
-    ////////////////////////
+
+    ///////////////////////////////
+    // Section card
+    function showCard(uid) {
+      // get data based on uid (via ajax?)
+
+      // Populate data
+      $("#course-number").text("");
+      $("#course-title").text("");
+      $("#course-description").text("");
+      $("#instructor").text("");
+      $("#section").text("");
+      $("#section-type").text("");
+      $("#semester").text("");
+      $("#credits").text("");
+      $("#prereqs").text("");
+      $("#coreq").text("");
+      $("effectiveness").text("");
+      $("grading").text("");
+      $("cancellability").text("");
+      courseInfo.show();
+    }
+  });
+  // Close button
+  $("#closeCard").click(function(e){
+    $("#courseInfo").hide();
   });
   
   

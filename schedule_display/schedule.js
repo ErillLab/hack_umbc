@@ -270,7 +270,7 @@ function addTimes() {
 	}
 }
 
-function addClass(classStartTime, classEndTime, day, title) {
+function addClass(classStartTime, classEndTime, day, title, uid) {
 	// Draw background pill
 	var pillX = dayToX(day) + 2;
 	var pillY = timeToY(classStartTime);
@@ -292,6 +292,7 @@ function addClass(classStartTime, classEndTime, day, title) {
 	classObj.title = title;
 	classObj.xRange = [pillX, pillX+pillW];
 	classObj.yRange = [pillY,pillY+pillH];
+	classObj.uid = uid;
 	classes.push(classObj);
 }
 
