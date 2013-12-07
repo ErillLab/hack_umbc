@@ -110,7 +110,7 @@ function getCursorPosition(e) {
 // Drawing functions
 function drawGrid(){
 	// vert lines
-	for (var x = 0.5 + pad; x <= canvasW - pad; x += cellW) {
+	for (var x = 0.5 + pad; x <= canvasW - pad+4; x += cellW) {
 		//colX = 0.5 + x + p;
 		startY = 0.5 + pad;
 		stopY = 0.5 + pad + rows * cellH;
