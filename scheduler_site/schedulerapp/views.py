@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-
+import json
 
 def home(request):
     all_courses = models.Course.objects.filter(section__yr=2012,
@@ -21,5 +21,10 @@ def list_all_courses(request):
                               context_instance=RequestContext(request))
 
 
-
+def get_section_info_ajax(request, uid):
+    section = models.Section.objects.get(courseid=uid)
+    json_resp = {}
+    json_resp['course-number'] = section.course.dept + section.course.number
+    json_resp['course-title'] = section.course.title
+    return HttpResponse(json.dumps(json_resp), mimetype="application/json")
 
