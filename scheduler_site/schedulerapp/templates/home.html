@@ -132,7 +132,7 @@
       var urlParts = document.URL.split("/");
       var urlCode = urlParts[-1];
       var uids = urlParts.split("/");
-      for (int i = 0; i < uids.length; i++){
+      for (var i = 0; i < uids.length; i++){
         addClassByUid(parseInt(uids[i]));
       }
     }
