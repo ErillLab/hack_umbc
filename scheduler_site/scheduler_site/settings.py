@@ -129,7 +129,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'django_extensions',
-    'social.apps.django_app.default',
+#    'social.apps.django_app.default',
     'schedulerapp',
 )
 
@@ -163,7 +163,7 @@ LOGGING = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    'social.backends.open_id.OpenIdAuth',
+    # 'social.backends.open_id.OpenIdAuth', # 
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -174,7 +174,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.media",
     "django.core.context_processors.static",
     "django.contrib.messages.context_processors.messages",
-    'social.apps.django_app.context_processors.backends',
-    'social.apps.django_app.context_processors.login_redirect',
+    # 'social.apps.django_app.context_processors.backends',
+    # 'social.apps.django_app.context_processors.login_redirect',
 
 )
