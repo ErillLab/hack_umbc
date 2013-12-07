@@ -95,6 +95,7 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script src="{% static "schedule.js" %}"></script>
+<script src="{% static "urlencode.js" %}"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     
@@ -195,7 +196,26 @@
   });
   
   ///////////////////////////////
-  // 
+  // Share bar functions
+  $("#screenshot").click(function(e){
+    window.open(screenshot());
+  });
+  $("#reset").click(function(e){
+    // (Re-)Initialize everything
+    initializeCanvas($("#schedule"), schedStartTime, schedEndTime, function(clickInfo) {
+      if (clickInfo.classInfo) {
+        showCard(clickInfo.classInfo.uid);
+      }
+    });
+  });
+  $("#get-link").click(function(e){
+    var uids = [];
+    for (var i = 0; i < classes.length; i++) {
+      uids.push(classes[i].uid);
+    }
+    var urlCode = encode(uids);
+    console.log(urlCode);
+  });
   
 </script>
 
