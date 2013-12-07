@@ -23,7 +23,7 @@ def populate_db():
         print 'evaluation'
         section = models.Section.objects.create(course=course,
                                                 semester=sec['semester'],
-                                                year=sec['year'],
+                                                yr=sec['year'],
                                                 courseid=random.randint(1, 10000),
                                                 evaluation=evaluation)
         section.save()

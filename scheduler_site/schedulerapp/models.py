@@ -29,7 +29,7 @@ class Section(models.Model):
     courseid = models.IntegerField() # section-specific course id
     professors = models.ManyToManyField('Professor',)
     semester = models.CharField(max_length=50)
-    year = models.IntegerField()
+    yr = models.IntegerField()
     evaluation = models.OneToOneField('Evaluation',
                                       null=False,
                                       blank=False)
