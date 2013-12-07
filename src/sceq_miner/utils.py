@@ -11,7 +11,10 @@ def log2(x):
 
 def mean(xs):
     if hasattr(xs,"__len__"):
-        return sum(xs)/float(len(xs))
+        if len(xs) > 0:
+            return sum(xs)/float(len(xs))
+        else:
+            return None
     else:
         acc = 0
         n = 0
