@@ -101,18 +101,6 @@
     
     ///////////////////////////////
     // Schedule canvas
-    function addClassByUid(uid) {
-      // ajax fetch info with uid
-      // Get data by AJAX
-      
-
-      $.get( '/scheduler/schedulerapp/get_section_ajax/' + uid, function( data ) {
-        console.log(data);
-      });
-
-       addClass(courseStartTime,courseEndTime,courseDay,courseTitle,uid);
-    }
-
 
     // Set a start and end time to display
     // 10am -> 8pm
@@ -229,6 +217,17 @@
     console.log(urlCode);
     console.log(selection_to_integer(urlCode));
   });
+
+  ///////////////////////////////
+  // AJAX
+  function addClassByUid(uid) {
+    // Get data by AJAX
+    $.get( '/scheduler/schedulerapp/get_section_ajax/' + uid, function( data ) {
+      console.log(data);
+    });
+
+     //addClass(courseStartTime,courseEndTime,courseDay,courseTitle,uid);
+  }
   
 </script>
 
