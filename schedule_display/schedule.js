@@ -343,14 +343,7 @@ function clearCanvas() {
 	context.fillStyle = backgroundColor;
 	context.fillRect(0, 0, canvas[0].width, canvas[0].height)
 	context.fillStyle = "black";
-
-	// Draw skeleton of schedule
-	drawGrid();
-
-	// Draw starting schedule
-	addWeekdays();
-	addTimes();
-
+	
 	// Clear classes
 	classes = [];
 	gridText = [];
@@ -360,6 +353,14 @@ function clearCanvas() {
 			gridText[i][j] = "";
 		}
 	}
+
+	// Draw skeleton of schedule
+	drawGrid();
+
+	// Draw starting schedule
+	addWeekdays();
+	addTimes();
+
 }
 
 function findClassInXY(xyCoords) {
