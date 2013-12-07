@@ -30,9 +30,15 @@ def get_section_info_ajax(request, uid):
     json_resp['course-description'] = section.course.description
     json_resp['instructor'] = section.professor.name
     json_resp['semester'] = section.semester
-    json_resp['effectiveness'] = section.evaluation.effectiveness
-    json_resp['grading'] = section.evaluation.grading
-    json_resp['cancellability'] = section.evaluation.cancelability
+    json_resp['approachableness'] = section.evaluation.approachableness
+    json_resp['fairness'] = section.evaluation.fairness
+    json_resp['engagingness'] = section.evaluation.engagingness
+    json_resp['sessions'] = [{'time-start-hr': ses.time_start_hr,
+                              'time-start-min': ses.time_start_min,
+                              'time-end-hr': ses.time_end_hr,
+                              'time-end-min': ses.time_end_min}
+                             for ses in section.sessions_set.all()}]
+
     
     return HttpResponse(json.dumps(json_resp), mimetype="application/json")
 

@@ -23,9 +23,13 @@ def populate_db():
                                                        )
         instructor,_ = models.Professor.objects.get_or_create(name=sec['instructor'])
         evaluation = models.Evaluation.objects.create(
-            effectiveness = course_analysis.instructor_average(sec['instructor'], sections),
-            grading = course_analysis.mean_exp_grade(sec),
-            cancelability = course_analysis.cancelability(sec))
+            #effectiveness = course_analysis.instructor_average(sec['instructor'], sections),
+            #grading = course_analysis.mean_exp_grade(sec),
+            #cancelability = course_analysis.cancelability(sec))
+            approachableness = course_analysis.approachableness(sec),
+            fairness = course_analysis.fairness(sec),
+            #effectiveness = course_analysis.effectiveness(sec))
+            engagingness = course_analysis.engagingness(sec))
 
         section = models.Section.objects.create(course=course,
                                                 semester=sec['semester'],
@@ -42,7 +46,7 @@ def populate_db():
             print time_start_min
             print time_start_hr
             return models.Session.objects.create(
-                day_of_the_week = random.choice(models.Session.DAYS_OF_THE_WEEK)[0],
+                day_of_the_week = random.choice(['Mon', 'Tue', 'Wed', 'Thu', 'Fri']),
                 time_start_hr = time_start_hr,
                 time_start_min = time_start_min,
                 time_end_hr = time_start_hr + 2,
