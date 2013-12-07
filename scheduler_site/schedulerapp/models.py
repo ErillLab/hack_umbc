@@ -8,7 +8,7 @@ class Course(models.Model):
         ('lecture', 'lecture')
     )
     dept = models.CharField(max_length=50)
-    number = models.IntegerField() # course number
+    number = models.CharField(max_length=50) # course number
     title = models.CharField(max_length=50)
     type = models.CharField(max_length=50)
     description = models.TextField()
@@ -22,20 +22,14 @@ class Course(models.Model):
                                          related_name='corequsites_all')
 
     def __unicode__(self):
-        return u'%s%d %s' % (self.dept, self.number, self.title)
+        return u'%s%s %s' % (self.dept, self.number, self.title)
 
 class Section(models.Model):
-    SEMESTERS = (
-        ('fall', 'Fall'),
-        ('winter', 'Winter'),
-        ('spring', 'Spring'),
-        ('summer', 'Summer'),
-    )
     course = models.ForeignKey('Course', null=False, blank=False)
     courseid = models.IntegerField() # section-specific course id
     professors = models.ManyToManyField('Professor',)
-    semester = models.CharField(max_length=50, choices=SEMESTERS)
-    year = models.IntegerField()
+    semester = models.CharField(max_length=50)
+    yr = models.IntegerField()
     evaluation = models.OneToOneField('Evaluation',
                                       null=False,
                                       blank=False)
