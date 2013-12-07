@@ -23,6 +23,34 @@
 </div>
 </div>
 
+<div id="courseInfo" class="container">
+    <div class="well">
+        <span id="closeCard" class="glyphicon glyphicon-remove pull-right link"></span>
+        <h1 id="course-number">MATH 221 <small id="course-title">Intro to Linear Algebra</small></h1>
+        <blockquote id="course-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ornare facilisis ligula, nec luctus magna pellentesque commodo. Ut aliquam nulla sit amet suscipit fringilla. Donec facilisis feugiat dignissim. Pellentesque imperdiet enim quis commodo volutpat. Quisque ipsum tellus, luctus sed dolor ut, porttitor ornare mauris. Nam sollicitudin, sem ac posuere ultricies, tortor dolor volutpat est, vitae sagittis ipsum justo non eros. Fusce sodales faucibus blandit. Praesent consectetur nulla sem, a volutpat erat dictum nec. Aliquam convallis ultrices mattis. Vivamus fringilla tristique ligula, sed eleifend justo semper vitae.</blockquote>
+        <dl class="dl-horizontal">
+          <dt>Instructor</dt> <dd id="instructor">Draganescu, Andrei</dd>
+          <dt>Section</dt> <dd id="section">02</dd>
+          <dt>Section Type</dt> <dd id="section-type">Lecture</dd>
+          <dt>Semester</dt> <dd id="semester">Fall 2013</dd>
+          <dt>Credits</dt> <dd id="credits">3.0</dd>
+          <dt>Pre-Requirements</dt> <dd id="prereqs">MATH 151</dd>
+          <dt>Co-Requirements</dt> <dd id="coreq">None</dd>
+        </dl>
+        <table class="table table-bordered">
+          <tr class="h3 text-center ratings">
+            <td class="active" title="Effectiveness" data-content="Explanation here."><strong>Effectiveness</strong></td>
+            <td class="" id="effectiveness">4.6</td>
+            <td class="active" title="Grading" data-content="Explanation here."><strong>Grading</strong></td>
+            <td class="" id="grading">3.2</td>
+            <td class="active" title="Cancellability" data-content="Explanation here."><strong>Cancellability</strong></td>
+            <td class="" id="cancellability">1.2</td>
+          </tr>
+        </table>
+    </div>
+</div>
+
+
 <h2>Search for courses</h2>
 <div class="right-inner-addon">
   <i class="icon-search"></i>
@@ -52,7 +80,7 @@
           <td>{{ section.courseid }}</td>
           <td><i>{% for session in section.session_set.all %} {{ session }}, {% endfor %}</i></td>
           <td>{{ section.professor }}</td>
-          <td><a href="#"><span class="glyphicon glyphicon-plus"></span>Add to Schedule</a></td>
+          <td><a class="addToSchedule" href="#"><span class="glyphicon glyphicon-plus"></span> Add to Schedule</a></td>
         </tr>
         {% endfor %}
         </tbody>
@@ -63,43 +91,20 @@
   {% endfor %}
 </div>
 
-<div id="courseInfo" class="container">
-    <div class="well">
-        <span id="closeCard" class="glyphicon glyphicon-remove pull-right link"></span>
-        <h1 id="course-number">MATH 221 <small id="course-title">Intro to Linear Algebra</small></h1>
-        <blockquote id="course-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ornare facilisis ligula, nec luctus magna pellentesque commodo. Ut aliquam nulla sit amet suscipit fringilla. Donec facilisis feugiat dignissim. Pellentesque imperdiet enim quis commodo volutpat. Quisque ipsum tellus, luctus sed dolor ut, porttitor ornare mauris. Nam sollicitudin, sem ac posuere ultricies, tortor dolor volutpat est, vitae sagittis ipsum justo non eros. Fusce sodales faucibus blandit. Praesent consectetur nulla sem, a volutpat erat dictum nec. Aliquam convallis ultrices mattis. Vivamus fringilla tristique ligula, sed eleifend justo semper vitae.</blockquote>
-        <dl class="dl-horizontal">
-          <dt>Instructor</dt> <dd id="instructor">Draganescu, Andrei</dd>
-          <dt>Section</dt> <dd id="section">02</dd>
-          <dt>Section Type</dt> <dd id="section-type">Lecture</dd>
-          <dt>Semester</dt> <dd id="semester">Fall 2013</dd>
-          <dt>Credits</dt> <dd id="credits">3.0</dd>
-          <dt>Pre-Requirements</dt> <dd id="prereqs">MATH 151</dd>
-          <dt>Co-Requirements</dt> <dd id="coreq">None</dd>
-        </dl>
-        <table class="table table-bordered">
-          <tr class="h3 text-center ratings">
-            <td class="active" title="Effectiveness" data-content="Explanation here."><strong>Effectiveness</strong></td>
-            <td class="" id="effectiveness">4.6</td>
-            <td class="active" title="Grading" data-content="Explanation here."><strong>Grading</strong></td>
-            <td class="" id="grading">3.2</td>
-            <td class="active" title="Cancellability" data-content="Explanation here."><strong>Cancellability</strong></td>
-            <td class="" id="cancellability">1.2</td>
-          </tr>
-        </table>
-    </div>
-</div>
 
 
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+<script src="//code.jquery.com/jquery-latest.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script src="{% static "schedule.js" %}"></script>
+<script src="{% static "urlencode.js" %}"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     
     ///////////////////////////////
     // Schedule canvas
+
     // Set a start and end time to display
     // 10am -> 8pm
     var schedStartTime = [10, 0]; // [h, m]
@@ -119,14 +124,14 @@
     addClass([17,30],[19,10],"Thursday","CHEM 437",1000);
 
     addClass([13,00],[14,10],"Monday","MATH 221",1001);
-    addClass([13,00],[14,10],"Wednesday","MATH 221",1001;
+    addClass([13,00],[14,10],"Wednesday","MATH 221",1001);
 
     addClass([16,00],[17,15],"Monday","CMSC 203",1002);
     addClass([16,00],[17,15],"Wednesday","CMSC 203",1002);
-    
-    // Get the image string:
-    //pngURI = screenshot();
 
+    // TODO: check url and populate based off URL
+    
+    
     ///////////////////////////////
     // Live search
     // Credit: http://stackoverflow.com/questions/15103358/live-search-in-jquery
@@ -160,42 +165,103 @@
       }
     });
 
-    ///////////////////////////////
-    // Section card
-    function showCard(uid) {
-      // get data based on uid (via ajax?)
+    $(".addToSchedule").click(function(e) {
+      var uid = parseInt($(this).parent().siblings()[0].innerText);
+      addClassByUid(uid);
+    });
 
-      // Populate data
-      $("#course-number").text("");
-      $("#course-title").text("");
-      $("#course-description").text("");
-      $("#instructor").text("");
-      $("#section").text("");
-      $("#section-type").text("");
-      $("#semester").text("");
-      $("#credits").text("");
-      $("#prereqs").text("");
-      $("#coreq").text("");
-      $("effectiveness").text("");
-      $("grading").text("");
-      $("cancellability").text("");
+  }); // DOM ready event
 
-      // Set colors for the ratings
-      $("effectiveness").addClass("warning");
-      $("grading").addClass("warning");
-      $("cancellability").addClass("warning");
-      // do colors depending on content
 
-      courseInfo.show();
-    }
-  });
+  ///////////////////////////////
+  // Section card
+  function showCard(uid) {
+    // Get data by AJAX
+    var ajaxData;
+    $.get( '/scheduler/schedulerapp/get_section_ajax/' + uid, function( data ) {
+        ajaxData = data;
+
+        // Populate data
+        $("#course-number").text(ajaxData["course-number"]);
+        $("#course-title").text(ajaxData["course-title"]);
+        $("#instructor").text(ajaxData["instructor"]);
+        $("#semester").text(ajaxData["semester"]);
+
+        $("#effectiveness").text(Number((parseFloat(ajaxData["effectiveness"])).toFixed(1)));
+        $("#grading").text(Number((parseFloat(ajaxData["grading"])).toFixed(1)));
+        $("#cancellability").text(Number((parseFloat(ajaxData["cancellability"])).toFixed(1)));
+        
+        $("#course-description").text(ajaxData["course-description"]);
+        
+        /*$("#section").text(ajaxData["section"]);
+        $("#section-type").text(ajaxData["section-type"]);
+        $("#credits").text(ajaxData["credits"]);
+        $("#prereqs").text(ajaxData["prereqs"]);
+        $("#coreq").text(ajaxData["coreq"]);*/
+
+        $("#section").text("07");
+        $("#section-type").text("Lecture");
+        $("#credits").text("3.0");
+        $("#prereqs").text("None");
+        $("#coreq").text("None");
+
+        // Set colors for the ratings
+        var ratings = [$("#effectiveness"), $("#grading"), $("#cancellability")];
+        for (var i = 0; i < ratings.length; i++) {
+          var rating = parseFloat(ratings[i].text());
+          if (rating < 2.0) {
+            ratings[i].addClass("danger");
+          } else if (rating >= 2.0 && rating < 3.75) {
+            ratings[i].addClass("warning");
+          } else {
+            ratings[i].addClass("success");
+          }
+        }
+
+        // Display!
+        $("#courseInfo").show();
+      });
+    
+  }
+
   // Close button
   $("#closeCard").click(function(e){
     $("#courseInfo").hide();
   });
   
   ///////////////////////////////
-  // 
+  // Share bar functions
+  $("#screenshot").click(function(e){
+    window.open(screenshot());
+  });
+  $("#reset").click(function(e){
+    // (Re-)Initialize everything
+    clearCanvas();
+  });
+  $("#get-link").click(function(e){
+    var uids = [];
+    for (var i = 0; i < classes.length; i++) {
+      uids.push(classes[i].uid);
+    }
+    var urlCode = encode(uids);
+    console.log(urlCode);
+    console.log(selection_to_integer(urlCode));
+  });
+
+  ///////////////////////////////
+  // AJAX
+  function addClassByUid(uid) {
+    // Get data by AJAX
+    $.get( '/scheduler/schedulerapp/get_section_ajax/' + uid, function( data ) {
+      var courseStartTime = [10,0];
+      var courseEndTime = [11,0];
+      var courseDay = "Wednesday";
+      var courseTitle = data["course-number"];
+      addClass(courseStartTime, courseEndTime, courseDay, courseTitle, uid);
+    });
+    
+      
+  }
   
 </script>
 

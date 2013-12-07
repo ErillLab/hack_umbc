@@ -338,6 +338,30 @@ function removeClass(uid) {
 	}
 }
 
+function clearCanvas() {
+	// Clear canvas
+	context.fillStyle = backgroundColor;
+	context.fillRect(0, 0, canvas[0].width, canvas[0].height)
+	context.fillStyle = "black";
+
+	// Draw skeleton of schedule
+	drawGrid();
+
+	// Draw starting schedule
+	addWeekdays();
+	addTimes();
+
+	// Clear classes
+	classes = [];
+	gridText = [];
+	for (var i = 0; i < rows; i++) {
+		gridText[i] = [];
+		for (var j = 0; j < columns; j++) {
+			gridText[i][j] = "";
+		}
+	}
+}
+
 function findClassInXY(xyCoords) {
 	x = xyCoords[0];
 	y = xyCoords[1];
