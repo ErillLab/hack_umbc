@@ -180,54 +180,48 @@
     var ajaxData;
     $.get( '/scheduler/schedulerapp/get_section_ajax/' + uid, function( data ) {
         ajaxData = data;
+
+        // Populate data
+        $("#course-number").text(ajaxData["course-number"]);
+        $("#course-title").text(ajaxData["course-title"]);
+        $("#instructor").text(ajaxData["instructor"]);
+        $("#semester").text(ajaxData["semester"]);
+
+        $("#effectiveness").text(Number((parseFloat(ajaxData["effectiveness"])).toFixed(1)));
+        $("#grading").text(Number((parseFloat(ajaxData["grading"])).toFixed(1)));
+        $("#cancellability").text(Number((parseFloat(ajaxData["cancellability"])).toFixed(1)));
+        
+        $("#course-description").text(ajaxData["course-description"]);
+        
+        /*$("#section").text(ajaxData["section"]);
+        $("#section-type").text(ajaxData["section-type"]);
+        $("#credits").text(ajaxData["credits"]);
+        $("#prereqs").text(ajaxData["prereqs"]);
+        $("#coreq").text(ajaxData["coreq"]);*/
+
+        $("#section").text("07");
+        $("#section-type").text("Lecture");
+        $("#credits").text("3.0");
+        $("#prereqs").text("None");
+        $("#coreq").text("None");
+
+        // Set colors for the ratings
+        var ratings = [$("#effectiveness"), $("#grading"), $("#cancellability")];
+        for (var i = 0; i < ratings.length; i++) {
+          var rating = parseFloat(ratings[i].text());
+          if (rating < 2.0) {
+            ratings[i].addClass("danger");
+          } else if (rating >= 2.0 && rating < 3.75) {
+            ratings[i].addClass("warning");
+          } else {
+            ratings[i].addClass("success");
+          }
+        }
+
+        // Display!
+        $("#courseInfo").show();
       });
-    /*cancellability: 4.5
-  course-description: ""
-  course-number: "CMSC202"
-  course-title: "Computer Science II"
-  effectiveness: 4.26625
-  grading: 2.72727272727273
-  instructor: "Bergeron,RyanJ"
-  semester: "Fall"*/
-    // Populate data
-    $("#course-number").text(ajaxData["course-number"]);
-    $("#course-title").text(ajaxData["course-title"]);
-    $("#instructor").text(ajaxData["instructor"]);
-    $("#semester").text(ajaxData["semester"]);
-
-    $("#effectiveness").text(Number((parseFloat(ajaxData["effectiveness"])).toFixed(1)));
-    $("#grading").text(Number((parseFloat(ajaxData["grading"])).toFixed(1)));
-    $("#cancellability").text(Number((parseFloat(ajaxData["cancellability"])).toFixed(1)));
     
-    $("#course-description").text(ajaxData["course-description"]);
-    
-    /*$("#section").text(ajaxData["section"]);
-    $("#section-type").text(ajaxData["section-type"]);
-    $("#credits").text(ajaxData["credits"]);
-    $("#prereqs").text(ajaxData["prereqs"]);
-    $("#coreq").text(ajaxData["coreq"]);*/
-
-    $("#section").text("07");
-    $("#section-type").text("Lecture");
-    $("#credits").text("3.0");
-    $("#prereqs").text("None");
-    $("#coreq").text("None");
-
-    // Set colors for the ratings
-    var ratings = [$("#effectiveness"), $("#grading"), $("#cancellability")];
-    for (var i = 0; i < ratings.length; i++) {
-      var rating = parseFloat(ratings[i].text());
-      if (rating < 2.0) {
-        ratings[i].addClass("danger");
-      } else if (rating >= 2.0 && rating < 3.75) {
-        ratings[i].addClass("warning");
-      } else {
-        ratings[i].addClass("success");
-      }
-    }
-
-    // Display!
-    $("#courseInfo").show();
   }
 
   // Close button
