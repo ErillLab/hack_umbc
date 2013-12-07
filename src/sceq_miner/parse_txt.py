@@ -48,6 +48,7 @@ def parse_txt(text_filename):
     ds = filter(lambda d:not d is None,all_ds)
     print "Parsed %s pages in %s with %s success rate" % (len(all_ds),text_filename,len(ds)/float(len(all_ds)))
     # ds may contain multiple dicts for a single class, so combine them...
+    print "partitioning:",text_filename
     partition = partition_according_to(proj,ds)
     final_partition = (map(lambda equiv_class:reduce(combine_dicts,equiv_class),partition))
     final_partition
@@ -150,4 +151,10 @@ def parse_page(page_string):
     return page_dict
 
 def read(x):
-    return x
+    try:
+        return int(x)
+    except:
+        try:
+            return float(x)
+        except:
+            return x
